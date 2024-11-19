@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bhukqbwp1iabd"]
+
+[ext_resource type="Script" path="res://src/scripts/player_info.gd" id="1_87b8d"]
+
+[resource]
+script = ExtResource("1_87b8d")
+name = ""
