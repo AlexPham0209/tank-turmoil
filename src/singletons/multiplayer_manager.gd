@@ -11,14 +11,16 @@ signal server_disconnected
 var peer : ENetMultiplayerPeer
 var players : Dictionary = {}
 
-var player_info : PlayerInfo
+var player_info : PlayerInfo = PlayerInfo.new()
 
 func _ready() -> void:
+	multiplayer.allow_object_decoding = true
 	multiplayer.connected_to_server.connect(on_connected_to_server)
 	multiplayer.connection_failed.connect(on_connection_failed)
 	
 	multiplayer.peer_connected.connect(on_player_connected)
 	multiplayer.peer_disconnected.connect(on_player_disconnected)
+	multiplayer.server_disconnected.connect(on_server_disconnected)
 
 func join_game(address = "") -> Error:
 	peer = ENetMultiplayerPeer.new()
@@ -41,8 +43,8 @@ func create_game() -> Error:
 		return error
 		
 	multiplayer.multiplayer_peer = peer
+	player_connected.emit(1, player_info)
 	return OK
-	
 
 #When the current client connects to the server 
 func on_connected_to_server() -> void:
@@ -68,6 +70,9 @@ func register_player(player_info : PlayerInfo):
 func on_player_disconnected(id : int) -> void:
 	players.erase(id)
 	player_disconnected.emit(id)
-	
 
+func on_server_disconnected() -> void:
+	multiplayer.multiplayer_peer = null
+	players.clear()
+	server_disconnected.emit()
 	

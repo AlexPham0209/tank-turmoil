@@ -7,6 +7,12 @@
 size = Vector2(12, 13)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6eh5n"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../NameLabel:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Tank" type="CharacterBody2D"]
 motion_mode = 1
@@ -21,4 +27,15 @@ texture = ExtResource("1_wln46")
 shape = SubResource("RectangleShape2D_bvkf0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_6eh5n")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -17.0
+offset_right = 11.0
+offset_bottom = -7.0
+theme_override_font_sizes/font_size = 5
+text = "hey"
+horizontal_alignment = 1
+vertical_alignment = 1

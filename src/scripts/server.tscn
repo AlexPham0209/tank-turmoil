@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://l5w5hd6obshi"]
-
-[ext_resource type="Script" path="res://src/singletons/multiplayer_manager.gd" id="1_ggdgj"]
-
-[node name="Server" type="Node"]
-script = ExtResource("1_ggdgj")
