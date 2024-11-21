@@ -17,3 +17,7 @@ spawn_limit = 4
 position = Vector2(220, 93)
 scale = Vector2(0.445104, 0.460756)
 texture = ExtResource("2_nfthu")
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(161, 89)
+scale = Vector2(3.52632, 2.64706)

@@ -1,18 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://clqs33kd6dk57"]
+[gd_scene load_steps=7 format=3 uid="uid://clqs33kd6dk57"]
 
 [ext_resource type="Script" path="res://src/scripts/tank.gd" id="1_3hlwi"]
 [ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="1_wln46"]
+[ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_fu6sl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvkf0"]
 size = Vector2(12, 13)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6eh5n"]
-properties/0/path = NodePath("..:position")
+properties/0/path = NodePath(".:id")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("../NameLabel:text")
+properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("NameLabel:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sm4bh"]
+properties/0/path = NodePath("PlayerInput:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Tank" type="CharacterBody2D"]
 motion_mode = 1
@@ -27,8 +36,11 @@ texture = ExtResource("1_wln46")
 shape = SubResource("RectangleShape2D_bvkf0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_6eh5n")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_sm4bh")
+script = ExtResource("3_fu6sl")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -10.0

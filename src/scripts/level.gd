@@ -1,6 +1,7 @@
 extends Node
 
 @onready var players = $Players
+@onready var spawn : Marker2D = $Spawn
 var player : PackedScene = preload("res://src/scenes/tank.tscn")
 
 
@@ -19,10 +20,12 @@ func _ready() -> void:
 func add_player(id : int, player_info : PlayerInfo) -> void:
 	var instance : Player = player.instantiate()
 	instance.name = str(id)
+	instance.id = id
 	instance.username = player_info.name
-	instance.global_position = self.global_position
-	
+	instance.global_position = spawn.global_position
+
 	players.add_child(instance, true)
+	
 	
 func remove_player(id : int) -> void:
 	var instance : Player = get_node_or_null(str(id))

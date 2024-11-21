@@ -20,7 +20,10 @@ func _on_host_pressed() -> void:
 	start_game()
 
 func _on_join_pressed() -> void:
-	MultiplayerManager.join_game()
+	if MultiplayerManager.join_game() != OK:
+		print("Server not found")
+		return
+		
 	start_game()
 
 func start_game():
