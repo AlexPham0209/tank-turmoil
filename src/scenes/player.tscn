@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://clqs33kd6dk57"]
 
-[ext_resource type="Script" path="res://src/scripts/tank.gd" id="1_3hlwi"]
-[ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="1_wln46"]
-[ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_fu6sl"]
+[ext_resource type="Script" path="res://src/scripts/tank.gd" id="1_ykvuu"]
+[ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="2_tiy6n"]
+[ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_xw242"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvkf0"]
 size = Vector2(12, 13)
@@ -23,14 +23,14 @@ properties/0/path = NodePath("PlayerInput:direction")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Tank" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_3hlwi")
+script = ExtResource("1_ykvuu")
 speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_wln46")
+texture = ExtResource("2_tiy6n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bvkf0")
@@ -41,7 +41,7 @@ replication_config = SubResource("SceneReplicationConfig_6eh5n")
 
 [node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_sm4bh")
-script = ExtResource("3_fu6sl")
+script = ExtResource("3_xw242")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -10.0
@@ -52,3 +52,5 @@ theme_override_font_sizes/font_size = 5
 text = "hey"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]

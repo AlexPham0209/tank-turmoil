@@ -3,7 +3,7 @@ extends Node
 
 @onready var players = $Players
 @onready var spawn : Marker2D = $Spawn
-var player : PackedScene = preload("res://src/scenes/tank.tscn")
+var player : PackedScene = preload("res://src/scenes/player.tscn")
 
 func _ready() -> void:
 	if not multiplayer.is_server():
