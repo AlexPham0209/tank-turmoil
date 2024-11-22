@@ -29,6 +29,7 @@ func join_game(address = "") -> Error:
 		address = DEFAULT_SERVER_IP
 	
 	var error : Error = peer.create_client(address, PORT)
+
 	if error:
 		return error
 		
@@ -73,6 +74,7 @@ func on_player_disconnected(id : int) -> void:
 
 func on_server_disconnected() -> void:
 	multiplayer.multiplayer_peer = null
+	peer = null
 	players.clear()
 	server_disconnected.emit()
 	
