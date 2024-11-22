@@ -4,7 +4,6 @@ var scene : String = "res://src/scenes/level.tscn"
 
 func _on_text_edit_text_submitted(new_text: String) -> void:
 	MultiplayerManager.player_info.name = new_text
-	print(MultiplayerManager.player_info.name)
 
 func _on_host_pressed() -> void:
 	var error = MultiplayerManager.create_game()

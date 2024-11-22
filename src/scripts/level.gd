@@ -1,3 +1,4 @@
+class_name Level
 extends Node
 
 @onready var players = $Players
@@ -24,7 +25,7 @@ func add_player(id : int, player_info : PlayerInfo) -> void:
 	instance.global_position = spawn.global_position
 	
 	players.add_child(instance, true)
-
+	
 func remove_player(id : int) -> void:
 	var instance : Player = players.get_node_or_null(str(id))
 	

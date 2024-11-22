@@ -6,8 +6,13 @@ var next_level = preload("res://src/scenes/level.tscn")
 
 func _ready() -> void:
 	MultiplayerManager.server_disconnected.connect(on_server_disconnected)
-	
+	MultiplayerManager.change_level.connect(change_level)
+
 func change_level(scene : PackedScene):
+	add_level.rpc_id(1, scene)
+
+@rpc("authority", "call_local", "reliable")
+func add_level(scene : PackedScene):
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
@@ -33,7 +38,7 @@ func start_game():
 	ui.hide()
 	
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://src/scenes/level.tscn"))
+		change_level.call_deferred(load("res://src/scenes/lobby.tscn"))
 
 func on_server_disconnected() -> void:
 	for c in level.get_children():

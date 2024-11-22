@@ -7,6 +7,7 @@ const MAX_CONNECTIONS = 4
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal change_level(level : PackedScene)
 
 var peer : ENetMultiplayerPeer
 var players : Dictionary = {}
@@ -21,6 +22,10 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(on_player_connected)
 	multiplayer.peer_disconnected.connect(on_player_disconnected)
 	multiplayer.server_disconnected.connect(on_server_disconnected)
+	
+	if OS.has_feature("dedicated_server"):
+		create_game()
+	
 
 func join_game(address = "") -> Error:
 	peer = ENetMultiplayerPeer.new()
@@ -35,7 +40,7 @@ func join_game(address = "") -> Error:
 		
 	multiplayer.multiplayer_peer = peer
 	return OK
-	
+
 func create_game() -> Error:
 	peer = ENetMultiplayerPeer.new()
 	
@@ -44,7 +49,10 @@ func create_game() -> Error:
 		return error
 		
 	multiplayer.multiplayer_peer = peer
-	player_connected.emit(1, player_info)
+	
+	if not OS.has_feature("dedicated_server"):
+		player_connected.emit(1, player_info)
+
 	return OK
 
 #When the current client connects to the server 
@@ -64,7 +72,7 @@ func on_player_connected(id : int) -> void:
 @rpc("any_peer", "reliable")
 func register_player(player_info : PlayerInfo):
 	var peer_id = multiplayer.get_remote_sender_id()
-	players[peer] = player_info
+	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
 
 #When a player disconnects from the current server, it notifies all clients all clients (including authority)
