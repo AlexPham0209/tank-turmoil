@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://clqs33kd6dk57"]
 
-[ext_resource type="Script" path="res://src/scripts/tank.gd" id="1_ykvuu"]
+[ext_resource type="Script" path="res://src/scripts/player.gd" id="1_ykvuu"]
 [ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="2_tiy6n"]
 [ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_xw242"]
 

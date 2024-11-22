@@ -44,7 +44,7 @@ func remove_player(id : int):
 	name.queue_free()
 	
 func start_game() -> void:
-	MultiplayerManager.change_level.emit(load("res://src/scenes/level.tscn"))
+	GameManager.next_round()
 
 @rpc("any_peer", "call_local")
 func show_button() -> void:

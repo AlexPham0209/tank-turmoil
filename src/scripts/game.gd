@@ -1,6 +1,5 @@
 extends Node2D
 
-var next_level = preload("res://src/scenes/level.tscn")
 @onready var level : Node2D = $Level
 @onready var ui : Control = $UI
 

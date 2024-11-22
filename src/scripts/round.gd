@@ -17,15 +17,20 @@ func _ready() -> void:
 	
 	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
 
+func player_killed():
+	if players.get_children().size() == 1:
+		print("ROUND WON")
+
 func add_player(id : int, player_info : PlayerInfo) -> void:
 	var instance : Player = player.instantiate()
 	instance.name = str(id)
 	instance.id = id
 	instance.username = player_info.name
 	instance.global_position = spawn.global_position
+	instance.death.connect(player_killed)
 	
 	players.add_child(instance, true)
-	
+
 func remove_player(id : int) -> void:
 	var instance : Player = players.get_node_or_null(str(id))
 	

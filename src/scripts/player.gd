@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal death
+
 @export var username : String
 @export var speed : float = 300.0
 
@@ -12,6 +14,7 @@ extends CharacterBody2D
 @onready var sprite : Sprite2D = $Sprite2D
 
 enum State {
+	WAIT,
 	IDLE,
 	RUN,
 	HURT,
@@ -65,6 +68,6 @@ func process_run(delta : float) -> void:
 		set_state.rpc(State.IDLE)
 	
 	self.velocity = player_input.direction * speed
-	
+
 
 	
