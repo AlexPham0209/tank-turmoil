@@ -9,6 +9,7 @@ func _ready() -> void:
 	if not multiplayer.is_server():
 		return
 	
+	await get_tree().create_timer(2.0).timeout
 	MultiplayerManager.player_connected.connect(add_player)
 	MultiplayerManager.player_disconnected.connect(remove_player)
 	
@@ -18,7 +19,7 @@ func _ready() -> void:
 	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
 	
 func player_killed():
-	if players.get_children().size() == 1:
+	if players.get_children().size() <= 2:
 		print("ROUND WON")
 
 func add_player(id : int, player_info : PlayerInfo) -> void:

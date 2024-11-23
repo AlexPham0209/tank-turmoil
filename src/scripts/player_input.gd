@@ -10,14 +10,14 @@ func _enter_tree() -> void:
 	
 func _ready() -> void:
 	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
-	
+
 func _process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
+	mouse_position = get_viewport().get_mouse_position() - get_viewport().get_visible_rect().size/2
 	
 	if Input.is_action_just_pressed("shoot"):
-		mouse_position = get_viewport().get_mouse_position()
 		shoot.rpc()
-		
+
 @rpc("any_peer", "call_local")
 func shoot() -> void:
 	can_shoot = true

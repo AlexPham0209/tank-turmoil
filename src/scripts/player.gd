@@ -12,7 +12,10 @@ var bullet : PackedScene = preload("res://src/scenes/bullet.tscn")
 @onready var name_label : Label = $NameLabel
 @onready var player_input : PlayerInput = $PlayerInput
 @onready var camera : Camera2D = $Camera2D
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var body : Node2D = $Body
+@onready var sprite : Sprite2D = $Body/Sprite2D
+@onready var bullet_spawn : Marker2D = $Body/Marker2D
+@onready var hurtbox : Hurtbox = $Hurtbox
 
 enum State {
 	WAIT,
@@ -38,11 +41,10 @@ var max_bullets : int = 3
 		if id == multiplayer.get_unique_id():
 			Signals.update_ammo.emit(bullets)
 
-func 
-
 func _ready() -> void:
 	health = max_health
 	bullets = max_bullets
+	hurtbox.take_damage.connect(on_take_damage)
 	
 	#Set which peer has control over the node
 	name_label.text = username
@@ -60,12 +62,13 @@ func set_state(state : State) -> void:
 			await get_tree().create_timer(1.0).timeout
 			set_state(State.IDLE)
 		State.DEAD:
-			pass
+			death.emit()
+			queue_free()
 	
 	current_state = state
 
 func _physics_process(delta: float) -> void:
-	print(current_state)
+	body.rotation = player_input.mouse_position.normalized().angle()
 	sprite.flip_h = player_input.direction.x < 0
 	process_state(delta)
 	move_and_slide()
@@ -95,11 +98,11 @@ func process_run(delta : float) -> void:
 		set_state.rpc(State.IDLE)
 
 	self.velocity = player_input.direction * speed
-
+	
 func shoot() -> void:
 	var instance : Bullet = bullet.instantiate()
-	instance.global_position = self.global_position
-	var direction : Vector2 = self.global_position - player_input.mouse_position
+	instance.global_position = bullet_spawn.global_position
+	var direction : Vector2 = player_input.mouse_position.normalized()
 	instance.rotation = direction.angle()
 	instance.direction = direction
 	get_tree().current_scene.add_child(instance)

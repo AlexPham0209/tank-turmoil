@@ -7,7 +7,6 @@ extends Node2D
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	self.position += direction * speed * delta
-	print(self.direction)
 	
 func _on_timer_timeout() -> void:
 	queue_free()

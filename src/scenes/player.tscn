@@ -39,15 +39,16 @@ radius = 6.0
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_ykvuu")
-username = null
 speed = 150.0
-id = null
-health = null
-bullets = null
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_tiy6n")
+
+[node name="Marker2D" type="Marker2D" parent="Body"]
+position = Vector2(17, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bvkf0")
@@ -75,6 +76,7 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [node name="Hurtbox" parent="." instance=ExtResource("4_assry")]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_lcwkk")
