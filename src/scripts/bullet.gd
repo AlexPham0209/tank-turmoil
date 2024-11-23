@@ -3,6 +3,7 @@ extends Node2D
 
 @export var speed : float = 100.0
 @export var direction : Vector2 = Vector2.ZERO
+var id : int = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

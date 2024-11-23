@@ -17,7 +17,6 @@ func next_round() -> void:
 		return
 	MultiplayerManager.change_level.emit(round)
 	
-
 func add_player(id : int, player_info : PlayerInfo) -> void:
 	var stats = {
 		"name" : player_info.name,
@@ -30,3 +29,21 @@ func add_player(id : int, player_info : PlayerInfo) -> void:
 
 func remove_player(id : int) -> void:
 	scores.erase(id)
+
+@rpc("any_peer", "call_local")
+func increase_kills(id : int) -> void:
+	scores[id]["kills"] += scores[id]["kills"] + 1
+
+@rpc("any_peer", "call_local")
+func increase_wins(id : int) -> void:
+	scores[id]["wins"] += scores[id]["wins"] + 1
+
+@rpc("any_peer", "call_local")
+func increase_deaths(id : int) -> void:
+	scores[id]["deaths"] += scores[id]["deaths"] + 1
+
+@rpc("any_peer", "call_local")
+func reset() -> void:
+	scores = Dictionary()
+	rounds = 0
+	

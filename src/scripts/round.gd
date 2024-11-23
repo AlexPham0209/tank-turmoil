@@ -19,8 +19,10 @@ func _ready() -> void:
 	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
 	
 func player_killed():
-	if players.get_children().size() <= 2:
-		print("ROUND WON")
+	print(players.get_children().size())
+	if players.get_children().size() <= 1:
+		GameManager.increase_wins.rpc(players.get_children()[0].id)
+		print(GameManager.scores)
 
 func add_player(id : int, player_info : PlayerInfo) -> void:
 	var instance : Player = player.instantiate()
@@ -28,7 +30,7 @@ func add_player(id : int, player_info : PlayerInfo) -> void:
 	instance.id = id
 	instance.username = player_info.name
 	instance.global_position = spawn.global_position
-	instance.death.connect(player_killed)
+	instance.tree_exited.connect(player_killed)
 	
 	players.add_child(instance, true)
 

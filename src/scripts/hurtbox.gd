@@ -1,7 +1,7 @@
 class_name Hurtbox
 extends Area2D
 
-signal take_damage(amount : int)
+signal take_damage(hitbox : Hitbox)
 signal stop_invincibility
 
 @export var invincibility_time : float = 1.0
@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	var hitboxes = get_overlapping_areas().filter(func(child): return child is Hitbox)
 	if timer.is_stopped() and hitboxes.size() > 0:
 		for hitbox in hitboxes:
-			take_damage.emit(hitbox.damage) 
+			take_damage.emit(hitbox) 
 		timer.start()
 
 func _on_timer_timeout() -> void:

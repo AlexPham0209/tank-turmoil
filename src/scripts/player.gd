@@ -12,9 +12,9 @@ var bullet : PackedScene = preload("res://src/scenes/bullet.tscn")
 @onready var name_label : Label = $NameLabel
 @onready var player_input : PlayerInput = $PlayerInput
 @onready var camera : Camera2D = $Camera2D
-@onready var body : Node2D = $Body
-@onready var sprite : Sprite2D = $Body/Sprite2D
-@onready var bullet_spawn : Marker2D = $Body/Marker2D
+@onready var aim : Node2D = $Aim
+@onready var sprite : Sprite2D = $Sprite2D
+@onready var bullet_spawn : Marker2D = $Aim/Marker2D
 @onready var hurtbox : Hurtbox = $Hurtbox
 
 enum State {
@@ -62,13 +62,12 @@ func set_state(state : State) -> void:
 			await get_tree().create_timer(1.0).timeout
 			set_state(State.IDLE)
 		State.DEAD:
-			death.emit()
 			queue_free()
 	
 	current_state = state
 
 func _physics_process(delta: float) -> void:
-	body.rotation = player_input.mouse_position.normalized().angle()
+	aim.rotation = player_input.mouse_position.normalized().angle()
 	sprite.flip_h = player_input.direction.x < 0
 	process_state(delta)
 	move_and_slide()
@@ -107,10 +106,15 @@ func shoot() -> void:
 	instance.direction = direction
 	get_tree().current_scene.add_child(instance)
 	
-func on_take_damage(amount : int) -> void:
-	health -= amount
+func on_take_damage(hitbox : Hitbox) -> void:
+	health -= hitbox.damage
 	
 	if health <= 0:
+		GameManager.increase_kills.rpc(hitbox.id)
+		GameManager.increase_deaths.rpc(id)
 		set_state.rpc(State.DEAD)
 	else:
 		set_state.rpc(State.HURT)
+
+func _exit_tree() -> void:
+	death.emit()

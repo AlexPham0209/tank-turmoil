@@ -41,13 +41,13 @@ motion_mode = 1
 script = ExtResource("1_ykvuu")
 speed = 150.0
 
-[node name="Body" type="Node2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_tiy6n")
 
-[node name="Marker2D" type="Marker2D" parent="Body"]
+[node name="Aim" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Aim"]
 position = Vector2(17, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -77,6 +77,7 @@ position_smoothing_enabled = true
 
 [node name="Hurtbox" parent="." instance=ExtResource("4_assry")]
 collision_mask = 2
+invincibility_time = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_lcwkk")
