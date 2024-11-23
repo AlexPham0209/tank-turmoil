@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c42ib5d3f6lg3"]
+[gd_scene load_steps=4 format=3 uid="uid://c42ib5d3f6lg3"]
 
 [ext_resource type="Script" path="res://src/scripts/round.gd" id="1_ko5vf"]
+[ext_resource type="PackedScene" uid="uid://pt3gn3dugj75" path="res://src/scenes/health.tscn" id="2_7la7u"]
+[ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="3_rl1oa"]
 
 [node name="Round" type="Node2D"]
 script = ExtResource("1_ko5vf")
@@ -8,10 +10,26 @@ script = ExtResource("1_ko5vf")
 [node name="Players" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://src/scenes/player.tscn")
+_spawnable_scenes = PackedStringArray("res://src/scenes/player.tscn", "res://src/scenes/bullet.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 4
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(161, 89)
 scale = Vector2(3.52632, 2.64706)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" parent="UI/Control" instance=ExtResource("2_7la7u")]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(256, 94)
+texture = ExtResource("3_rl1oa")

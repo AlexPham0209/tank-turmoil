@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://pt3gn3dugj75"]
+
+[ext_resource type="Script" path="res://src/scripts/health_bar.gd" id="1_44nld"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_44nld")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 12
+text = "Health: "
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 76.0
+offset_bottom = 23.0

@@ -12,10 +12,11 @@ func _ready() -> void:
 	MultiplayerManager.player_disconnected.connect(remove_player)
 
 func next_round() -> void:
-	if round == max_rounds:
+	if rounds == max_rounds:
 		MultiplayerManager.change_level.emit(winning_screen) 
 		return
 	MultiplayerManager.change_level.emit(round)
+	
 
 func add_player(id : int, player_info : PlayerInfo) -> void:
 	var stats = {

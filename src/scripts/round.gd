@@ -16,7 +16,7 @@ func _ready() -> void:
 		add_player(id, MultiplayerManager.players[id])
 	
 	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
-
+	
 func player_killed():
 	if players.get_children().size() == 1:
 		print("ROUND WON")

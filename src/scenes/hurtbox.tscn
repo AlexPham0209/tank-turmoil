@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://450e88gt240c"]
+
+[ext_resource type="Script" path="res://src/scripts/hurtbox.gd" id="1_u30cu"]
+
+[node name="Hurtbox" type="Area2D"]
+script = ExtResource("1_u30cu")
+
+[node name="Timer" type="Timer" parent="."]
