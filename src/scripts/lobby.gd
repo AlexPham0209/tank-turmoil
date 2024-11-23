@@ -1,12 +1,12 @@
-extends Control
+extends CanvasLayer
 
 var name_label : PackedScene = preload("res://src/scenes/name_label.tscn")
 
 var names : Dictionary = Dictionary()
 var player_order : Array[int]
 
-@onready var container : VBoxContainer = $Container
-@onready var start_button : Button = $Start
+@onready var container : VBoxContainer = $Control/Container
+@onready var start_button : Button = $Control/Start
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,9 +28,10 @@ func add_player(id : int, player_info : PlayerInfo):
 	instance.text = player_info.name
 	names[id] = instance
 	container.add_child(instance, true)
+	player_order.append(id)
 	
-	if names.size() == 1:
-		show_button.rpc_id(id)
+	if names.size() > 1:
+		show_button.rpc_id(player_order[0])
 
 func remove_player(id : int):
 	var name = names[id]

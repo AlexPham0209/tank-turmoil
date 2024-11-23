@@ -7,12 +7,18 @@
 [node name="Round" type="Node2D"]
 script = ExtResource("1_ko5vf")
 
+[node name="Bullets" type="Node2D" parent="."]
+
 [node name="Players" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://src/scenes/player.tscn", "res://src/scenes/bullet.tscn")
+_spawnable_scenes = PackedStringArray("res://src/scenes/player.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 4
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://src/scenes/bullet.tscn")
+spawn_path = NodePath("../Bullets")
 
 [node name="Spawn" type="Marker2D" parent="."]
 position = Vector2(161, 89)

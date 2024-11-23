@@ -9,6 +9,8 @@ var bullet : PackedScene = preload("res://src/scenes/bullet.tscn")
 
 @export var id := 1
 
+var bullet_path : Node2D
+
 @onready var name_label : Label = $NameLabel
 @onready var player_input : PlayerInput = $PlayerInput
 @onready var camera : Camera2D = $Camera2D
@@ -104,17 +106,18 @@ func shoot() -> void:
 	var direction : Vector2 = player_input.mouse_position.normalized()
 	instance.rotation = direction.angle()
 	instance.direction = direction
-	get_tree().current_scene.add_child(instance)
+	instance.id = id
+	
+	if bullet_path != null:
+		bullet_path.add_child(instance, true)
 	
 func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
-	
+
 	if health <= 0:
 		GameManager.increase_kills.rpc(hitbox.id)
 		GameManager.increase_deaths.rpc(id)
+		death.emit()
 		set_state.rpc(State.DEAD)
 	else:
 		set_state.rpc(State.HURT)
-
-func _exit_tree() -> void:
-	death.emit()
