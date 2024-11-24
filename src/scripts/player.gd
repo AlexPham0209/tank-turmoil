@@ -50,8 +50,13 @@ func _ready() -> void:
 	health = max_health
 	bullets = max_bullets
 	hurtbox.take_damage.connect(on_take_damage)
-	camera.top_left = top_left
-	camera.bottom_right = bottom_right
+	
+	if top_left:
+		camera.limit_left = top_left.position.x
+		camera.limit_top = top_left.position.y
+	if bottom_right:
+		camera.limit_right = bottom_right.position.x
+		camera.limit_bottom = bottom_right.position.y
 	
 	#Set which peer has control over the node
 	name_label.text = username
@@ -72,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	player_input.can_shoot = false
 	
 func shoot() -> void:
-	Signals.camera_shake.emit()
+	camera.screen_shake()
 	var instance : Bullet = bullet.instantiate()
 	instance.global_position = bullet_spawn.global_position
 	var direction : Vector2 = player_input.mouse_position.normalized()

@@ -15,8 +15,6 @@ var shake_strength: float = 0.0
 var tween : Tween 
 
 func _ready() -> void:
-	Signals.camera_shake.connect(screen_shake)
-	
 	if top_left:
 		self.limit_left = top_left.position.x
 		self.limit_top = top_left.position.y
