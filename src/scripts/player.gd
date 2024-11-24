@@ -117,13 +117,8 @@ func on_take_damage(hitbox : Hitbox) -> void:
 
 	if health <= 0:
 		if id == multiplayer.get_unique_id():
-			print(multiplayer.get_unique_id())
-			print(hitbox.id)
-			print(id)
-			print()
 			GameManager.increase_kills.rpc(hitbox.id)
 			GameManager.increase_deaths.rpc(id)
-		
-		set_state.rpc(State.DEAD)
+			set_state.rpc(State.DEAD)
 	else:
 		set_state.rpc(State.HURT)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://clqs33kd6dk57"]
 
 [ext_resource type="Script" path="res://src/scripts/player.gd" id="1_ykvuu"]
-[ext_resource type="Texture2D" uid="uid://bhf58itxnv3vv" path="res://src/assets/cowboy.png" id="2_iavel"]
+[ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="2_tiy6n"]
 [ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_xw242"]
 [ext_resource type="PackedScene" uid="uid://450e88gt240c" path="res://src/scenes/hurtbox.tscn" id="4_assry"]
 
@@ -44,7 +44,8 @@ script = ExtResource("1_ykvuu")
 speed = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iavel")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_tiy6n")
 
 [node name="Aim" type="Node2D" parent="."]
 
@@ -53,6 +54,7 @@ position = Vector2(17, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bvkf0")
+disabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6eh5n")

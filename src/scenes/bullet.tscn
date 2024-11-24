@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3p4tpwb24uhq"]
 
-[ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="1_8vfia"]
 [ext_resource type="Script" path="res://src/scripts/bullet.gd" id="1_55xc7"]
+[ext_resource type="Texture2D" uid="uid://cge0ftkm002qi" path="res://src/assets/bullet.png" id="2_ij0uk"]
 [ext_resource type="PackedScene" uid="uid://cj0017kcp415m" path="res://src/scenes/hitbox.tscn" id="2_svf10"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00mme"]
@@ -35,8 +35,8 @@ script = ExtResource("1_55xc7")
 speed = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.132813, 0.0273437)
-texture = ExtResource("1_8vfia")
+scale = Vector2(3, 1)
+texture = ExtResource("2_ij0uk")
 
 [node name="Timer" type="Timer" parent="."]
 
