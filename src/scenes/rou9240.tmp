@@ -363,7 +363,7 @@ position = Vector2(216, 32)
 scale = Vector2(3.52632, 2.64706)
 
 [node name="Spawn3" type="Marker2D" parent="Spawns"]
-position = Vector2(208, 176)
+position = Vector2(248, 184)
 scale = Vector2(3.52632, 2.64706)
 
 [node name="Spawn4" type="Marker2D" parent="Spawns"]
@@ -372,22 +372,6 @@ scale = Vector2(3.52632, 2.64706)
 
 [node name="Spawn5" type="Marker2D" parent="Spawns"]
 position = Vector2(-128, 72)
-scale = Vector2(3.52632, 2.64706)
-
-[node name="Spawn6" type="Marker2D" parent="Spawns"]
-position = Vector2(392, -56)
-scale = Vector2(3.52632, 2.64706)
-
-[node name="Spawn7" type="Marker2D" parent="Spawns"]
-position = Vector2(416, 24)
-scale = Vector2(3.52632, 2.64706)
-
-[node name="Spawn8" type="Marker2D" parent="Spawns"]
-position = Vector2(424, 240)
-scale = Vector2(3.52632, 2.64706)
-
-[node name="Spawn9" type="Marker2D" parent="Spawns"]
-position = Vector2(-96, 256)
 scale = Vector2(3.52632, 2.64706)
 
 [node name="Players" type="Node2D" parent="."]

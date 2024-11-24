@@ -1,5 +1,5 @@
 class_name PlayerInput
-extends MultiplayerSynchronizer
+extends Node2D
 
 @export var direction : Vector2 = Vector2.ZERO
 @export var mouse_position : Vector2 = Vector2.ZERO
@@ -13,8 +13,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
-	mouse_position = get_viewport().get_mouse_position() - get_viewport().get_visible_rect().size/2
+	mouse_position = get_global_mouse_position()
 	
+	print(str(get_multiplayer_authority()) + ": " + str(direction))
 	if Input.is_action_just_pressed("shoot"):
 		shoot.rpc()
 

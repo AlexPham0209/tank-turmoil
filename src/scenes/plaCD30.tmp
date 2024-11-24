@@ -38,11 +38,11 @@ properties/8/path = NodePath("Camera2D:limit_bottom")
 properties/8/spawn = true
 properties/8/replication_mode = 1
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bow3e"]
-properties/0/path = NodePath(".:direction")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sm4bh"]
+properties/0/path = NodePath("PlayerInput:direction")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:mouse_position")
+properties/1/path = NodePath("PlayerInput:mouse_position")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
@@ -54,7 +54,11 @@ collision_layer = 4
 collision_mask = 8
 motion_mode = 1
 script = ExtResource("1_ykvuu")
+username = null
 speed = 150.0
+id = null
+health = null
+bullets = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_iavel")
@@ -70,11 +74,9 @@ shape = SubResource("RectangleShape2D_bvkf0")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6eh5n")
 
-[node name="PlayerInput" type="Node2D" parent="."]
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_sm4bh")
 script = ExtResource("3_xw242")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="PlayerInput"]
-replication_config = SubResource("SceneReplicationConfig_bow3e")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -10.0

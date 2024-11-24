@@ -3,7 +3,7 @@ extends Node
 
 @onready var players = $Players
 @onready var bullets = $Bullets
-@onready var spawn : Marker2D = $Spawn
+@onready var spawns = $Spawns
 
 @onready var top_left : Marker2D = $Bounds/TopLeft
 @onready var bottom_right : Marker2D = $Bounds/BottomRight
@@ -14,13 +14,16 @@ func _ready() -> void:
 	if not multiplayer.is_server():
 		return
 
-	MultiplayerManager.player_connected.connect(add_player)
+	MultiplayerManager.player_connected.connect(on_player_connected)
 	MultiplayerManager.player_disconnected.connect(remove_player)
 	
+	var positions = spawns.get_children()
 	for id in multiplayer.get_peers():
-		add_player(id, MultiplayerManager.players[id])
+		var i = randi() % positions.size()
+		add_player(id, MultiplayerManager.players[id], positions[i].global_position)
+		positions.remove_at(i)
 	
-	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
+	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info, positions.pick_random().global_position)
 	
 func player_killed(player : Player):
 	await player.tree_exited
@@ -28,12 +31,15 @@ func player_killed(player : Player):
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
 
-func add_player(id : int, player_info : PlayerInfo) -> void:
+func on_player_connected(id : int, player_info : PlayerInfo) -> void:
+	add_player(id, player_info, spawns.get_children().pick_random().global_position)
+	
+func add_player(id : int, player_info : PlayerInfo, position : Vector2) -> void:
 	var instance : Player = player.instantiate()
 	instance.name = str(id)
 	instance.id = id
 	instance.username = player_info.name
-	instance.global_position = Vector2(randf_range(top_left.global_position.x, bottom_right.position.x), randf_range(bottom_right.position.y, top_left.global_position.y))
+	instance.global_position = position
 	instance.death.connect(player_killed)
 	instance.bullet_path = bullets
 	

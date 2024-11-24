@@ -64,7 +64,7 @@ func _ready() -> void:
 		camera.make_current()
 
 func _physics_process(delta: float) -> void:
-	aim.rotation = player_input.mouse_position.normalized().angle()
+	aim.rotation = (player_input.mouse_position - global_position).normalized().angle()
 	if player_input.direction.x != 0:
 		sprite.flip_h = player_input.direction.x > 0
 	
@@ -80,7 +80,7 @@ func shoot() -> void:
 	camera.screen_shake()
 	var instance : Bullet = bullet.instantiate()
 	instance.global_position = bullet_spawn.global_position
-	var direction : Vector2 = player_input.mouse_position.normalized()
+	var direction : Vector2 = (player_input.mouse_position - global_position).normalized()
 	instance.rotation = direction.angle()
 	instance.direction = direction
 	instance.id = id
@@ -92,7 +92,9 @@ func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
 
 	if health <= 0:
-		GameManager.increase_kills.rpc(hitbox.id)
-		GameManager.increase_deaths.rpc(id)
+		if id == get_multiplayer_authority():
+			GameManager.increase_kills.rpc(hitbox.id)
+			GameManager.increase_deaths.rpc(id)
+		
 		death.emit(self)
 		queue_free()
