@@ -20,8 +20,7 @@ func _ready() -> void:
 
 func add_score(player : int) -> void:
 	var player_score = GameManager.scores[player]
-	print(GameManager.scores[player])
-	
+
 	var instance : Score = score.instantiate()
 	instance.player = player_score["name"]
 	instance.wins = player_score["wins"]

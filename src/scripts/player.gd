@@ -36,7 +36,7 @@ var max_bullets : int = 3
 		health = clamp(value, 0, max_health)
 		if id == multiplayer.get_unique_id():
 			Signals.update_health.emit(health)
-
+		
 @export var bullets : float = 0 :
 	set(value):
 		bullets = clamp(value, 0, max_bullets)
@@ -117,8 +117,13 @@ func on_take_damage(hitbox : Hitbox) -> void:
 
 	if health <= 0:
 		if id == multiplayer.get_unique_id():
+			print(multiplayer.get_unique_id())
+			print(hitbox.id)
+			print(id)
+			print()
 			GameManager.increase_kills.rpc(hitbox.id)
 			GameManager.increase_deaths.rpc(id)
+		
 		set_state.rpc(State.DEAD)
 	else:
 		set_state.rpc(State.HURT)

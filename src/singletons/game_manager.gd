@@ -12,7 +12,6 @@ func _ready() -> void:
 	MultiplayerManager.player_disconnected.connect(remove_player)
 
 func next_round() -> void:
-	print("change")
 	if rounds == max_rounds:
 		MultiplayerManager.change_level.emit(winning_screen) 
 		return

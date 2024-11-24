@@ -6,8 +6,8 @@ extends MultiplayerSynchronizer
 var can_shoot : bool = false
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(get_parent().id)
-	
+	set_multiplayer_authority(get_parent().name.to_int())
+
 func _ready() -> void:
 	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
 
