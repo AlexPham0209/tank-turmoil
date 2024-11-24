@@ -7,6 +7,7 @@ const MAX_CONNECTIONS = 4
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal connection_failed
 signal change_level(level : PackedScene)
 
 var peer : ENetMultiplayerPeer
@@ -23,8 +24,8 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(on_player_disconnected)
 	multiplayer.server_disconnected.connect(on_server_disconnected)
 	
-	if OS.has_feature("dedicated_server"):
-		create_game()
+	#if OS.has_feature("dedicated_server"):
+		#create_game()
 	
 
 func join_game(address = "") -> Error:
@@ -57,6 +58,7 @@ func create_game() -> Error:
 
 #When the current client connects to the server 
 func on_connected_to_server() -> void:
+	print("connected")
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
@@ -64,6 +66,7 @@ func on_connected_to_server() -> void:
 #If current client fails to connect to server
 func on_connection_failed() -> void:
 	multiplayer.multiplayer_peer = null
+	connection_failed.emit()
 
 #When a player connects to the current server, tje signal notifies all clients (including authority)
 func on_player_connected(id : int) -> void:
@@ -85,4 +88,7 @@ func on_server_disconnected() -> void:
 	peer = null
 	players.clear()
 	server_disconnected.emit()
-	
+
+func disconnect_from_server() -> void:
+	if peer != null:
+		peer.close()

@@ -30,7 +30,7 @@ func player_killed(player : Player):
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
-
+	
 func on_player_connected(id : int, player_info : PlayerInfo) -> void:
 	add_player(id, player_info, spawns.get_children().pick_random().global_position)
 	

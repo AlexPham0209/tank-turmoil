@@ -15,7 +15,6 @@ func _process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
 	mouse_position = get_global_mouse_position()
 	
-	print(str(get_multiplayer_authority()) + ": " + str(direction))
 	if Input.is_action_just_pressed("shoot"):
 		shoot.rpc()
 

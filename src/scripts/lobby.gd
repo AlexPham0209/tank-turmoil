@@ -39,7 +39,7 @@ func remove_player(id : int):
 	var order = player_order.find(id)
 	player_order.erase(id)
 	
-	if player_order.find(id) == 0:
+	if order == 0 and player_order.size() >= 1:
 		show_button.rpc_id(player_order[0])
 	
 	name.queue_free()
