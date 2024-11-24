@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-signal death
+signal death(player : Player)
 var bullet : PackedScene = preload("res://src/scenes/bullet.tscn")
 
 @export var username : String
@@ -64,6 +64,7 @@ func set_state(state : State) -> void:
 			await get_tree().create_timer(1.0).timeout
 			set_state(State.IDLE)
 		State.DEAD:
+			death.emit(self)
 			queue_free()
 	
 	current_state = state
@@ -115,9 +116,9 @@ func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
 
 	if health <= 0:
-		GameManager.increase_kills.rpc(hitbox.id)
-		GameManager.increase_deaths.rpc(id)
-		death.emit()
+		if id == multiplayer.get_unique_id():
+			GameManager.increase_kills.rpc(hitbox.id)
+			GameManager.increase_deaths.rpc(id)
 		set_state.rpc(State.DEAD)
 	else:
 		set_state.rpc(State.HURT)
