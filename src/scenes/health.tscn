@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://pt3gn3dugj75"]
+[gd_scene load_steps=3 format=3 uid="uid://pt3gn3dugj75"]
 
 [ext_resource type="Script" path="res://src/scripts/health_bar.gd" id="1_44nld"]
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="2_suiig"]
 
 [node name="HealthBar" type="Control"]
 layout_mode = 3
@@ -11,11 +12,17 @@ script = ExtResource("1_44nld")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_suiig")
 theme_override_font_sizes/font_size = 12
 text = "Health: "
 
 [node name="Amount" type="Label" parent="."]
 layout_mode = 0
-offset_left = 46.0
-offset_right = 76.0
-offset_bottom = 23.0
+offset_left = 42.0
+offset_top = -3.0
+offset_right = 72.0
+offset_bottom = 22.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_suiig")
+text = "5"

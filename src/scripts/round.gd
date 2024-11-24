@@ -7,6 +7,7 @@ extends Node
 
 @onready var top_left : Marker2D = $Bounds/TopLeft
 @onready var bottom_right : Marker2D = $Bounds/BottomRight
+@onready var winner : Label = $UI/Winner
 	
 var player : PackedScene = preload("res://src/scenes/player.tscn")
 
@@ -29,7 +30,10 @@ func player_killed(player : Player):
 	await player.tree_exited
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
-		await get_tree().create_timer(1.0).timeout
+		
+		winner.show()
+		winner.text = "%s Wins" % MultiplayerManager.players[players.get_children()[0].id].name
+		await get_tree().create_timer(2.0).timeout
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
 	
 func on_player_connected(id : int, player_info : PlayerInfo) -> void:

@@ -51,14 +51,12 @@ func create_game() -> Error:
 		
 	multiplayer.multiplayer_peer = peer
 	
-	if not OS.has_feature("dedicated_server"):
-		player_connected.emit(1, player_info)
-
+	players[1] = player_info
+	player_connected.emit(1, player_info)
 	return OK
 
 #When the current client connects to the server 
 func on_connected_to_server() -> void:
-	print("connected")
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
