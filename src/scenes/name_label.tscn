@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://66dt7y14rej7"]
+[gd_scene load_steps=3 format=3 uid="uid://66dt7y14rej7"]
+
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="1_v2yst"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ylagp"]
 properties/0/path = NodePath(".:text")
@@ -6,6 +8,8 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Name" type="Label"]
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_v2yst")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ylagp")

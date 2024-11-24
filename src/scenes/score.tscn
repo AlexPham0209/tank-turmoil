@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bukdxdbd5po4d"]
+[gd_scene load_steps=4 format=3 uid="uid://bukdxdbd5po4d"]
 
 [ext_resource type="Script" path="res://src/scripts/score.gd" id="1_qwy14"]
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="2_tvx8n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onfty"]
 properties/0/path = NodePath("Wins:text")
@@ -31,6 +32,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_tvx8n")
 text = "Alex"
 horizontal_alignment = 1
 
@@ -39,6 +42,8 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 97.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_tvx8n")
 text = "0"
 horizontal_alignment = 1
 
@@ -47,6 +52,8 @@ layout_mode = 0
 offset_left = 97.0
 offset_right = 127.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_tvx8n")
 text = "0"
 horizontal_alignment = 1
 
@@ -55,6 +62,8 @@ layout_mode = 0
 offset_left = 127.0
 offset_right = 160.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_tvx8n")
 text = "0"
 horizontal_alignment = 1
 

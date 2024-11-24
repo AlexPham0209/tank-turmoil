@@ -90,3 +90,14 @@ func on_server_disconnected() -> void:
 func disconnect_from_server() -> void:
 	if peer != null:
 		peer.close()
+		
+func disconnect_players() -> void:
+	if not multiplayer.is_server():
+		return 
+	
+	for id in multiplayer.get_peers():
+		if id != 1:
+			peer.disconnect_peer(id)
+	
+	players[1] = player_info
+	player_connected.emit(1, player_info)

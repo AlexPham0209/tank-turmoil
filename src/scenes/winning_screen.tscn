@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6l7wtdba7f62"]
+[gd_scene load_steps=3 format=3 uid="uid://b6l7wtdba7f62"]
 
 [ext_resource type="Texture2D" uid="uid://p1h3ic7diw3i" path="res://icon.svg" id="1_5lvsk"]
+[ext_resource type="Script" path="res://src/scripts/winning_screen.gd" id="1_kox3b"]
 
 [node name="WinningScreen" type="Node2D"]
+script = ExtResource("1_kox3b")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(214, 73)

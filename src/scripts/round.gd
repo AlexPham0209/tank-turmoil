@@ -30,9 +30,7 @@ func player_killed(player : Player):
 	await player.tree_exited
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
-		
-		winner.show()
-		winner.text = "%s Wins" % MultiplayerManager.players[players.get_children()[0].id].name
+		show_winner.rpc()
 		await get_tree().create_timer(2.0).timeout
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
 	
@@ -53,6 +51,11 @@ func add_player(id : int, player_info : PlayerInfo, position : Vector2) -> void:
 	
 	players.add_child(instance, true)
 
+@rpc("any_peer", "call_local")
+func show_winner() -> void:
+	winner.show()
+	winner.text = "%s Wins" % MultiplayerManager.players[players.get_children()[0].id].name
+		
 func remove_player(id : int) -> void:
 	var instance : Player = players.get_node_or_null(str(id))
 	

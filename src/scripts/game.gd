@@ -15,6 +15,7 @@ func change_level(scene : PackedScene):
 
 @rpc("any_peer", "call_local")
 func transition() -> void:
+	animation_player.play("fade")
 	animation_player.play_backwards("fade")
 
 @rpc("authority", "call_local", "reliable")
@@ -50,14 +51,9 @@ func start_game():
 		change_level.call_deferred(load("res://src/scenes/lobby.tscn"))
 
 func lost_connection() -> void:
-	await animation_player.animation_finished
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
 	animation_player.play_backwards("fade")
 
 	ui.show()
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		MultiplayerManager.disconnect_from_server()

@@ -20,6 +20,7 @@ func next_round() -> void:
 	rounds += 1
 	
 func add_player(id : int, player_info : PlayerInfo) -> void:
+	print(id)
 	var stats = {
 		"name" : player_info.name,
 		"wins" : 0,

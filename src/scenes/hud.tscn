@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh1i3j3uojkxv"]
+[gd_scene load_steps=3 format=3 uid="uid://bh1i3j3uojkxv"]
 
 [ext_resource type="Script" path="res://src/scripts/hud.gd" id="1_b1j6y"]
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="2_qbtcr"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -26,12 +27,14 @@ offset_right = 42.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_qbtcr")
 theme_override_font_sizes/font_size = 10
 placeholder_text = "Enter Name"
 alignment = 1
 context_menu_enabled = false
 virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
+flat = true
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 1
@@ -46,8 +49,10 @@ offset_right = 16.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_qbtcr")
 theme_override_font_sizes/font_size = 10
 text = "Host"
+flat = true
 
 [node name="Join" type="Button" parent="."]
 layout_mode = 1
@@ -62,8 +67,10 @@ offset_right = 14.0
 offset_bottom = 63.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_qbtcr")
 theme_override_font_sizes/font_size = 10
 text = "Join"
+flat = true
 
 [connection signal="text_submitted" from="TextEdit" to="." method="_on_text_edit_text_submitted"]
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]

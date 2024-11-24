@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://clqs33kd6dk57"]
+[gd_scene load_steps=11 format=3 uid="uid://clqs33kd6dk57"]
 
 [ext_resource type="Script" path="res://src/scripts/player.gd" id="1_ykvuu"]
 [ext_resource type="Texture2D" uid="uid://bhf58itxnv3vv" path="res://src/assets/cowboy.png" id="2_iavel"]
 [ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_xw242"]
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="4_4fq25"]
 [ext_resource type="PackedScene" uid="uid://450e88gt240c" path="res://src/scenes/hurtbox.tscn" id="4_assry"]
 [ext_resource type="Script" path="res://src/scripts/camera_2d.gd" id="4_yniq3"]
 
@@ -81,6 +82,8 @@ offset_left = -10.0
 offset_top = -17.0
 offset_right = 11.0
 offset_bottom = -7.0
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_4fq25")
 theme_override_font_sizes/font_size = 5
 text = "hey"
 horizontal_alignment = 1

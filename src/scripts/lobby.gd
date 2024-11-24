@@ -30,7 +30,7 @@ func add_player(id : int, player_info : PlayerInfo):
 	container.add_child(instance, true)
 	player_order.append(id)
 	
-	if names.size() > 1:
+	if player_order.size() >= 1:
 		show_button.rpc_id(player_order[0])
 
 func remove_player(id : int):
