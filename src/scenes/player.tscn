@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://clqs33kd6dk57"]
+[gd_scene load_steps=10 format=3 uid="uid://clqs33kd6dk57"]
 
 [ext_resource type="Script" path="res://src/scripts/player.gd" id="1_ykvuu"]
 [ext_resource type="Texture2D" uid="uid://bhf58itxnv3vv" path="res://src/assets/cowboy.png" id="2_iavel"]
 [ext_resource type="Script" path="res://src/scripts/player_input.gd" id="3_xw242"]
 [ext_resource type="PackedScene" uid="uid://450e88gt240c" path="res://src/scenes/hurtbox.tscn" id="4_assry"]
+[ext_resource type="Script" path="res://src/scripts/camera_2d.gd" id="4_yniq3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvkf0"]
 size = Vector2(12, 13)
@@ -74,6 +75,11 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("4_yniq3")
+NOISE_SHAKE_SPEED = 2.5
+NOISE_SHAKE_STRENGTH = 5.0
+SHAKE_DECAY_RATE = 5.0
+time = 0.1
 
 [node name="Hurtbox" parent="." instance=ExtResource("4_assry")]
 collision_mask = 2

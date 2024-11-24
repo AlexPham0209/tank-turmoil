@@ -19,11 +19,9 @@ func _ready() -> void:
 	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
 	
 func player_killed(player : Player):
-	print("asdfdsa")
 	await player.tree_exited
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
-		print("ROUND WON")
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
 
 func add_player(id : int, player_info : PlayerInfo) -> void:

@@ -31,6 +31,9 @@ var current_state : State = State.IDLE
 var max_health : int = 5
 var max_bullets : int = 3
 
+@export var top_left : Marker2D
+@export var bottom_right : Marker2D
+
 @export var health : float = 0 :
 	set(value):
 		health = clamp(value, 0, max_health)
@@ -47,32 +50,20 @@ func _ready() -> void:
 	health = max_health
 	bullets = max_bullets
 	hurtbox.take_damage.connect(on_take_damage)
+	camera.top_left = top_left
+	camera.bottom_right = bottom_right
 	
 	#Set which peer has control over the node
 	name_label.text = username
 	if id == multiplayer.get_unique_id():
 		camera.make_current()
 
-@rpc("any_peer", "call_local")
-func set_state(state : State) -> void:
-	match state:
-		State.IDLE:
-			self.velocity = Vector2.ZERO
-		State.RUN:
-			pass
-		State.HURT:
-			await get_tree().create_timer(1.0).timeout
-			set_state(State.IDLE)
-		State.DEAD:
-			death.emit(self)
-			queue_free()
-	
-	current_state = state
-
 func _physics_process(delta: float) -> void:
 	aim.rotation = player_input.mouse_position.normalized().angle()
-	sprite.flip_h = player_input.direction.x < 0
-	process_state(delta)
+	if player_input.direction.x != 0:
+		sprite.flip_h = player_input.direction.x > 0
+	
+	self.velocity = player_input.direction * speed
 	move_and_slide()
 	
 	if player_input.can_shoot:
@@ -80,28 +71,8 @@ func _physics_process(delta: float) -> void:
 		
 	player_input.can_shoot = false
 	
-func process_state(delta : float) -> void:
-	match current_state:
-		State.IDLE:
-			process_idle(delta)
-		State.RUN:
-			process_run(delta)
-		State.HURT:
-			pass
-		State.DEAD:
-			pass
-
-func process_idle(delta : float) -> void:
-	if player_input.direction != Vector2.ZERO:
-		set_state.rpc(State.RUN)
-
-func process_run(delta : float) -> void:
-	if player_input.direction == Vector2.ZERO:
-		set_state.rpc(State.IDLE)
-
-	self.velocity = player_input.direction * speed
-	
 func shoot() -> void:
+	Signals.camera_shake.emit()
 	var instance : Bullet = bullet.instantiate()
 	instance.global_position = bullet_spawn.global_position
 	var direction : Vector2 = player_input.mouse_position.normalized()
@@ -116,9 +87,7 @@ func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
 
 	if health <= 0:
-		if id == multiplayer.get_unique_id():
-			GameManager.increase_kills.rpc(hitbox.id)
-			GameManager.increase_deaths.rpc(id)
-			set_state.rpc(State.DEAD)
-	else:
-		set_state.rpc(State.HURT)
+		GameManager.increase_kills.rpc(hitbox.id)
+		GameManager.increase_deaths.rpc(id)
+		death.emit(self)
+		queue_free()
