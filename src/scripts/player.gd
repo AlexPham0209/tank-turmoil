@@ -92,7 +92,7 @@ func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
 
 	if health <= 0:
-		if id == get_multiplayer_authority():
+		if id == multiplayer.get_unique_id():
 			GameManager.increase_kills.rpc(hitbox.id)
 			GameManager.increase_deaths.rpc(id)
 		

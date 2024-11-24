@@ -29,6 +29,7 @@ func player_killed(player : Player):
 	await player.tree_exited
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
+		await get_tree().create_timer(1.0).timeout
 		MultiplayerManager.change_level.emit(load("res://src/scenes/scoreboard.tscn"))
 	
 func on_player_connected(id : int, player_info : PlayerInfo) -> void:
