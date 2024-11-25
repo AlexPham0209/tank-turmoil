@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1pm4q4raltby"]
+
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="1_fsnhn"]
+
+[node name="Message" type="Label"]
+offset_right = 192.0
+offset_bottom = 8.0
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("1_fsnhn")
+theme_override_font_sizes/font_size = 5

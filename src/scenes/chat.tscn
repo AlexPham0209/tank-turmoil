@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg4xdnb77oorr"]
+
+[ext_resource type="FontFile" uid="uid://blr1av5cpkt1f" path="res://src/assets/fonts/static/Oswald-Bold.ttf" id="1_5yqyy"]
+[ext_resource type="Script" path="res://src/scripts/chat.gd" id="1_o8yly"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ript8"]
+bg_color = Color(0.145098, 0.145098, 0.145098, 0.827451)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Chat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 192.0
+offset_bottom = 112.0
+script = ExtResource("1_o8yly")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ript8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_5yqyy")
+theme_override_font_sizes/font_size = 5
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
