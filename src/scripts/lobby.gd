@@ -10,7 +10,7 @@ var player_order : Array[int]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#start_button.hide()
+	start_button.hide()
 	
 	if not multiplayer.is_server():
 		return
@@ -40,7 +40,7 @@ func remove_player(id : int):
 	var order = player_order.find(id)
 	player_order.erase(id)
 	
-	if order == 0 and player_order.size() >= 1:
+	if order == 0 and player_order.size() >= 2:
 		show_button.rpc_id(player_order[0])
 	
 	name.queue_free()
