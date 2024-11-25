@@ -48,4 +48,8 @@ func increase_deaths(id : int) -> void:
 func reset() -> void:
 	scores = Dictionary()
 	rounds = 0
+
+
+func go_to_winning_screen() -> void:
+	MultiplayerManager.change_level.emit(winning_screen) 
 	

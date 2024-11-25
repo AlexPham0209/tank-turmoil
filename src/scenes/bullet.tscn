@@ -42,6 +42,7 @@ texture = ExtResource("2_ij0uk")
 
 [node name="Hitbox" parent="." instance=ExtResource("2_svf10")]
 collision_layer = 2
+collision_mask = 9
 damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -53,3 +54,4 @@ replication_config = SubResource("SceneReplicationConfig_wuivj")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

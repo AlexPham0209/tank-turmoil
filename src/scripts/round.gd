@@ -61,3 +61,7 @@ func remove_player(id : int) -> void:
 	
 	if instance:
 		instance.queue_free()
+	
+	await instance.tree_exited
+	if players.get_children().size() <= 1:
+		GameManager.go_to_winning_screen()
