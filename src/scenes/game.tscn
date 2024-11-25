@@ -5,6 +5,21 @@
 [ext_resource type="Script" path="res://src/scripts/hud.gd" id="3_avc74"]
 [ext_resource type="Texture2D" uid="uid://76qty0xkqhuq" path="res://src/assets/sunset.png" id="3_kaqjp"]
 
+[sub_resource type="Animation" id="Animation_hy4uv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition/Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_veod2"]
 resource_name = "fade"
 length = 0.5
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_hy4uv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transition/Control/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6rph1"]
 _data = {
 "RESET": SubResource("Animation_hy4uv"),
@@ -50,7 +50,6 @@ script = ExtResource("1_jeici")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://src/scenes/lobby.tscn", "res://src/scenes/round.tscn", "res://src/scenes/scoreboard.tscn", "res://src/scenes/winning_screen.tscn")
 spawn_path = NodePath("../Level")
-spawn_limit = 1
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

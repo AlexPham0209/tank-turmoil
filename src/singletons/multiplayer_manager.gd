@@ -24,9 +24,6 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(on_player_disconnected)
 	multiplayer.server_disconnected.connect(on_server_disconnected)
 	
-	#if OS.has_feature("dedicated_server"):
-		#create_game()
-	
 
 func join_game(address = "") -> Error:
 	peer = ENetMultiplayerPeer.new()
@@ -51,8 +48,10 @@ func create_game() -> Error:
 		
 	multiplayer.multiplayer_peer = peer
 	
-	players[1] = player_info
-	player_connected.emit(1, player_info)
+	if not OS.has_feature("dedicated_server"):
+		players[1] = player_info
+		player_connected.emit(1, player_info)
+	
 	return OK
 
 #When the current client connects to the server 
@@ -99,5 +98,6 @@ func disconnect_players() -> void:
 		if id != 1:
 			peer.disconnect_peer(id)
 	
-	players[1] = player_info
-	player_connected.emit(1, player_info)
+	if not OS.has_feature("dedicated_server"):
+		players[1] = player_info
+		player_connected.emit(1, player_info)

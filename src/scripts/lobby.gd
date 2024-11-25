@@ -10,7 +10,7 @@ var player_order : Array[int]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_button.hide()
+	#start_button.hide()
 	
 	if not multiplayer.is_server():
 		return
@@ -21,7 +21,8 @@ func _ready() -> void:
 	for id in multiplayer.get_peers():
 		add_player(id, MultiplayerManager.players[id])
 	
-	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
+	if not OS.has_feature("dedicated_server"):
+		add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info)
 
 func add_player(id : int, player_info : PlayerInfo):
 	var instance = name_label.instantiate()
@@ -43,7 +44,9 @@ func remove_player(id : int):
 		show_button.rpc_id(player_order[0])
 	
 	name.queue_free()
-	
+
+
+@rpc("any_peer", "call_local")
 func start_game() -> void:
 	GameManager.next_round()
 
@@ -51,4 +54,5 @@ func start_game() -> void:
 func show_button() -> void:
 	start_button.show()
 
-	
+func _on_start_pressed() -> void:
+	start_game.rpc_id(1)

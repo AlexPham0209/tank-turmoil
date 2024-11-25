@@ -1,5 +1,4 @@
-class_name Level
-extends Node
+extends Node2D
 
 @onready var players = $Players
 @onready var bullets = $Bullets
@@ -14,7 +13,7 @@ var player : PackedScene = preload("res://src/scenes/player.tscn")
 func _ready() -> void:
 	if not multiplayer.is_server():
 		return
-
+	
 	MultiplayerManager.player_connected.connect(on_player_connected)
 	MultiplayerManager.player_disconnected.connect(remove_player)
 	
@@ -24,7 +23,8 @@ func _ready() -> void:
 		add_player(id, MultiplayerManager.players[id], positions[i].global_position)
 		positions.remove_at(i)
 	
-	add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info, positions.pick_random().global_position)
+	if not OS.has_feature("dedicated_server"):
+		add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info, positions.pick_random().global_position)
 	
 func player_killed(player : Player):
 	await player.tree_exited

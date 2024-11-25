@@ -8,9 +8,14 @@ func _ready() -> void:
 	MultiplayerManager.server_disconnected.connect(lost_connection)
 	MultiplayerManager.connection_failed.connect(lost_connection)
 	MultiplayerManager.change_level.connect(change_level)
+	
+	if OS.has_feature("dedicated_server"):
+		print("dedicated")
+		MultiplayerManager.create_game()
+		start_game()
 
 func change_level(scene : PackedScene):
-	transition.rpc()
+	#transition.rpc()
 	add_level.rpc_id(1, scene)
 
 @rpc("any_peer", "call_local")
@@ -18,8 +23,9 @@ func transition() -> void:
 	animation_player.play("fade")
 	animation_player.play_backwards("fade")
 
-@rpc("authority", "call_local", "reliable")
+@rpc("any_peer", "call_local")
 func add_level(scene : PackedScene):
+	print(multiplayer.get_unique_id())
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
