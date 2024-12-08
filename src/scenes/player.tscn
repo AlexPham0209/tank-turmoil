@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://clqs33kd6dk57"]
+[gd_scene load_steps=12 format=3 uid="uid://clqs33kd6dk57"]
 
 [ext_resource type="Script" path="res://src/scripts/player.gd" id="1_ykvuu"]
 [ext_resource type="Texture2D" uid="uid://bhf58itxnv3vv" path="res://src/assets/cowboy.png" id="2_iavel"]
@@ -38,6 +38,9 @@ properties/7/replication_mode = 1
 properties/8/path = NodePath("Camera2D:limit_bottom")
 properties/8/spawn = true
 properties/8/replication_mode = 1
+properties/9/path = NodePath("HealthBar:value")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bow3e"]
 properties/0/path = NodePath(".:direction")
@@ -49,6 +52,13 @@ properties/1/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcwkk"]
 radius = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk0bc"]
+bg_color = Color(0.74, 0.1628, 0.17242, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -79,9 +89,9 @@ replication_config = SubResource("SceneReplicationConfig_bow3e")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -10.0
-offset_top = -17.0
+offset_top = -31.0
 offset_right = 11.0
-offset_bottom = -7.0
+offset_bottom = -21.0
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("4_4fq25")
 theme_override_font_sizes/font_size = 5
@@ -104,3 +114,12 @@ invincibility_time = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_lcwkk")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -18.0
+offset_top = -15.0
+offset_right = 18.0
+offset_bottom = -11.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lk0bc")
+value = 50.0
+show_percentage = false

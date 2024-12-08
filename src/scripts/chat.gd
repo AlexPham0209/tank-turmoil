@@ -3,6 +3,8 @@ extends Control
 var message_box : PackedScene = preload("res://src/scenes/message.tscn")
 @onready var messages : VBoxContainer = $ScrollContainer/VBoxContainer
 
+signal update_chat(is_open : bool)
+
 func _ready() -> void:
 	visible = false
 
@@ -18,3 +20,4 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("chat"):
 		visible = !visible
+		update_chat.emit(visible)

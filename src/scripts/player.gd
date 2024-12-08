@@ -18,6 +18,9 @@ var bullet_path : Node2D
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var bullet_spawn : Marker2D = $Aim/Marker2D
 @onready var hurtbox : Hurtbox = $Hurtbox
+@onready var health_bar : ProgressBar = $HealthBar
+
+var is_chat_open : bool = false
 
 enum State {
 	WAIT,
@@ -37,6 +40,9 @@ var max_bullets : int = 3
 @export var health : float = 0 :
 	set(value):
 		health = clamp(value, 0, max_health)
+		if health_bar != null:
+			health_bar.value = int((value / max_health) * 100)
+			
 		if id == multiplayer.get_unique_id():
 			Signals.update_health.emit(health)
 		
@@ -64,6 +70,9 @@ func _ready() -> void:
 		camera.make_current()
 
 func _physics_process(delta: float) -> void:
+	if is_chat_open:
+		return
+	
 	aim.rotation = (player_input.mouse_position - global_position).normalized().angle()
 	if player_input.direction.x != 0:
 		sprite.flip_h = player_input.direction.x > 0
@@ -90,6 +99,7 @@ func shoot() -> void:
 	
 func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
+	print(health_bar.value)
 
 	if health <= 0:
 		if id == multiplayer.get_unique_id():
@@ -98,3 +108,10 @@ func on_take_damage(hitbox : Hitbox) -> void:
 		
 		death.emit(self)
 		queue_free()
+
+func on_update_chat_rpc(value : bool) -> void:
+	on_update_chat.rpc(value)
+
+@rpc("any_peer", "call_local")
+func on_update_chat(value : bool) -> void:
+	is_chat_open = value

@@ -7,6 +7,7 @@ extends Node2D
 @onready var top_left : Marker2D = $Bounds/TopLeft
 @onready var bottom_right : Marker2D = $Bounds/BottomRight
 @onready var winner : Label = $UI/Winner
+@onready var chat = $UI/Chat
 	
 var player : PackedScene = preload("res://src/scenes/player.tscn")
 
@@ -44,6 +45,7 @@ func add_player(id : int, player_info : PlayerInfo, position : Vector2) -> void:
 	instance.username = player_info.name
 	instance.global_position = position
 	instance.death.connect(player_killed)
+	chat.update_chat.connect(instance.on_update_chat_rpc)
 	instance.bullet_path = bullets
 	
 	instance.top_left = top_left

@@ -10,12 +10,13 @@ extends Node2D
 func _ready() -> void:
 	hitbox.id = id
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
-	self.position += direction * speed * delta
 	if is_multiplayer_authority():
 		timer.start()
 	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	self.position += direction * speed * delta
+
 func _on_timer_timeout() -> void:
 	if is_multiplayer_authority():
 		queue_free()

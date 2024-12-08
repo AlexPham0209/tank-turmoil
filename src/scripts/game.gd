@@ -44,6 +44,9 @@ func _on_host_pressed() -> void:
 	start_game()
 
 func _on_join_pressed() -> void:
+	if MultiplayerManager.player_info.name == "":
+		return
+	
 	if MultiplayerManager.join_game() != OK:
 		print("Server not found")
 		return
@@ -63,3 +66,7 @@ func lost_connection() -> void:
 	animation_player.play_backwards("fade")
 
 	ui.show()
+
+
+func _on_text_edit_text_changed(new_text: String) -> void:
+	MultiplayerManager.player_info.name = new_text

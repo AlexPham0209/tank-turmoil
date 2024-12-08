@@ -1,7 +1,7 @@
 extends Node
 
-const PORT : int = 9000
-const DEFAULT_SERVER_IP = "127.0.0.1"
+const PORT : int = 3017
+const DEFAULT_SERVER_IP = "localhost"
 const MAX_CONNECTIONS = 4
 
 signal player_connected(peer_id, player_info)
