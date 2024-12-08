@@ -45,7 +45,6 @@ func add_player(id : int, player_info : PlayerInfo, position : Vector2) -> void:
 	instance.username = player_info.name
 	instance.global_position = position
 	instance.death.connect(player_killed)
-	chat.update_chat.connect(instance.on_update_chat_rpc)
 	instance.bullet_path = bullets
 	
 	instance.top_left = top_left

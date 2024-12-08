@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 signal death(player : Player)
+signal open_chat
 var bullet : PackedScene = preload("res://src/scenes/bullet.tscn")
 
 @export var username : String
@@ -19,8 +20,6 @@ var bullet_path : Node2D
 @onready var bullet_spawn : Marker2D = $Aim/Marker2D
 @onready var hurtbox : Hurtbox = $Hurtbox
 @onready var health_bar : ProgressBar = $HealthBar
-
-var is_chat_open : bool = false
 
 enum State {
 	WAIT,
@@ -69,10 +68,7 @@ func _ready() -> void:
 	if id == multiplayer.get_unique_id():
 		camera.make_current()
 
-func _physics_process(delta: float) -> void:
-	if is_chat_open:
-		return
-	
+func _physics_process(delta: float) -> void:	
 	aim.rotation = (player_input.mouse_position - global_position).normalized().angle()
 	if player_input.direction.x != 0:
 		sprite.flip_h = player_input.direction.x > 0
@@ -99,7 +95,6 @@ func shoot() -> void:
 	
 func on_take_damage(hitbox : Hitbox) -> void:
 	health -= hitbox.damage
-	print(health_bar.value)
 
 	if health <= 0:
 		if id == multiplayer.get_unique_id():
@@ -108,10 +103,3 @@ func on_take_damage(hitbox : Hitbox) -> void:
 		
 		death.emit(self)
 		queue_free()
-
-func on_update_chat_rpc(value : bool) -> void:
-	on_update_chat.rpc(value)
-
-@rpc("any_peer", "call_local")
-func on_update_chat(value : bool) -> void:
-	is_chat_open = value

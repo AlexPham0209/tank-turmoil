@@ -1,5 +1,7 @@
 extends Node
 
+signal open_chat
+
 var round : PackedScene = load("res://src/scenes/round.tscn")
 var winning_screen : PackedScene = load("res://src/scenes/winning_screen.tscn")
 var scores = Dictionary()
