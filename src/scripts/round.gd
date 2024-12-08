@@ -27,8 +27,13 @@ func _ready() -> void:
 	if not OS.has_feature("dedicated_server"):
 		add_player(multiplayer.get_unique_id(), MultiplayerManager.player_info, positions.pick_random().global_position)
 	
-func player_killed(player : Player):
+func player_killed(player : Player, killer_id : int):
 	await player.tree_exited
+	var instance : Player = players.get_node_or_null(str(killer_id))
+	
+	if instance:
+		instance.update_kills.rpc()
+		
 	if players.get_children().size() <= 1:
 		GameManager.increase_wins.rpc(players.get_children()[0].id)
 		show_winner.rpc()

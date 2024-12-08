@@ -41,6 +41,9 @@ properties/8/replication_mode = 1
 properties/9/path = NodePath("HealthBar:value")
 properties/9/spawn = true
 properties/9/replication_mode = 1
+properties/10/path = NodePath("Kills:text")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bow3e"]
 properties/0/path = NodePath(".:direction")
@@ -89,9 +92,9 @@ replication_config = SubResource("SceneReplicationConfig_bow3e")
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -10.0
-offset_top = -31.0
+offset_top = -33.0
 offset_right = 11.0
-offset_bottom = -21.0
+offset_bottom = -23.0
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("4_4fq25")
 theme_override_font_sizes/font_size = 5
@@ -99,7 +102,20 @@ text = "hey"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Kills" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -25.0
+offset_right = 11.0
+offset_bottom = -15.0
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("4_4fq25")
+theme_override_font_sizes/font_size = 5
+text = "Kills: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1.08322, 1)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_yniq3")
